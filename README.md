@@ -23,9 +23,7 @@ Once the deployment finishes, you will have an instance of the **Engagement advi
 ##How the app works
 
 1.  Go to the app's web interface by clicking the Open the Deployed App button in DevOps Services or by clicking the Open URL button in the Bluemix dashboard.
-2. When presented with a chat window, enter your question and click the submit button. (The application can provide responses to questions related to these three topics: What programs the school offers, which programs are offered online, and where campuses are located.
-3. The application will leverage the Watson services and automatically post an answer your question.
-4. Ask as many questions as you like. Here are some sample questions you can use to try out the application:
+2. When presented with a chat window, enter your question and click the submit button. (The application can provide responses to questions related to these three topics: What programs the school offers, which programs are offered online, and where campuses are located. The application will leverage the Watson services and automatically post an answer your question. Ask as many questions as you like. Here are some sample questions you can use to try out the application:
 
 Available programs:
 
