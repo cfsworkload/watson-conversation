@@ -5,6 +5,8 @@ The Program-Advisor application demonstrates how you can use the services **Dial
 This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. You will attach the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services. Once the application is set up, you will be able to ask questions about academic programs offered by a fictitious career college through a chat window.
 If you already know how Bluemix works and you want to automate forking the project, and editing the launch configuration, click the **Deploy to Bluemix** button below. Once the deployment is finished, jump to **How the app works**.
 
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
+
 ##Fork the Project to your personal DevOps space
 
 First, fork the publicly accessible repository hosted in http://hub.jazz.net to your personal DevOps space. This will allow you to deploy the app to Bluemix, create instances of the app, and attach services to the app.
