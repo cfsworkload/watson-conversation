@@ -1,6 +1,6 @@
 #Program-Advisor
 ##Learn about education offerings using automated chat
-The Program-Advisor application demonstrates how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
+The Program-Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
 ##Introduction
 This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. You will attach the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services. Once the application is set up, you will be able to ask questions about academic programs offered by a fictitious career college through a chat window.
 If you already know how Bluemix works and you want to automate forking the project, and editing the launch configuration, click the **Deploy to Bluemix** button below. Once the deployment is finished, jump to **How the app works**.
