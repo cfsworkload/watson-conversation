@@ -6,6 +6,13 @@ The Engagement Advisor application shows how you can use the services **Dialog**
 ##Introduction
 This Engagement Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
 
+## Create accounts and log in
+
+Sign up for Bluemix at https://console.ng.bluemix.net and DevOps Services at https://hub.jazz.net.
+When you sign up, you'll create IBM ID, create an alias, and register with Bluemix.
+
+## Deploy to Bluemix
+
 1. Select the **Deploy to Bluemix** button below.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
