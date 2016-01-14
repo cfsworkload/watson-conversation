@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog xsi:noNamespaceSchemaLocation="WatsonDialogDocument_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<flow>
+		<folder label="Main">
+			<output>
+				<prompt selectionType="RANDOM">
+					<item>Thank you for contacting Primo Medical Institute! I can provide you information about our degree and certificate programs or even help you find the career that's best for you. How may I help you?</item>
+				</prompt>
+			</output>
+			<output id="output_MAIN">
+<!--			
+				<prompt selectionType="SEQUENTIAL" id="prompt_MAIN">
+					<item>How may I help you?</item>
+				</prompt>
+-->				
+				<getUserInput id="getUserInput_MAIN">
+					<search ref="folder_Live_Content"/>
+					<default>
+						<output>
+							<prompt selectionType="RANDOM">
+								<item>I'm sorry I did not understand your question.</item>
+								<item>I did not quite get that.</item>
+								<item>I didnt grasp what you said.</item>
+								<item>I'm not following you at the moment.</item>
+							</prompt>
+						</output>
+					</default>
+				</getUserInput>
+			</output>
+		</folder>
+		<folder label="Library">
+			<folder label="Live Content" id="folder_Live_Content">
+				<folder label="Program" id="folder_Location">
+					<input>
+						<action varName="campus_area" operator="SET_TO_BLANK"/>
+						<action varName="campus_state" operator="SET_TO_BLANK"/>
+						<action varName="campus_city" operator="SET_TO_BLANK"/>
+						<!--Asking about programs in general -->
+						<grammar>
+							<item>$ [##LOCATION##]</item>
+						</grammar>
+						<input>
+							<grammar>
+								<item>$ (Campus_City)={campus_city} (Campus_State)={campus_state}</item>
+								<item>$ (Campus_City)={campus_city}</item>
+							</grammar>
+							<output>
+								<action varName="campus_city" operator="SET_TO">{campus_city.value:main}</action>
+								<action varName="campus_state" operator="SET_TO">{campus_state.value:main}</action>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Denver</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Colorado</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_DENVER">
+											<prompt selectionType="RANDOM">
+												<item>PMI operates 2 campuses in or around Denver, CO.  The Denver campus is located at: [##DENVER-CAMPUS-ADDRESS##]. The Aurora campus is located at: [##AURORA-CAMPUS-ADDRESS##]. Those south of the city might also consider our Colorado Springs campus.</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Albuquerque</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">New Mexico</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_ALBUQUERQUE">
+											<prompt selectionType="RANDOM">
+												<item>PMI operates 2 campuses in or around Albuquerque, NM.  The Albuquerque campus is located at: [##ALBUQUERQUE-CAMPUS-ADDRESS##].  The Albuquerque West campus is located at: [##ALBUQUERQUE-WEST-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">San Diego</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">California</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_CHULA_VISTA">
+											<prompt selectionType="RANDOM">
+												<item>The Chula Vista, CA campus is located at: [##CHULA-VISTA-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Tucson</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Arizona</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_TUCSON">
+											<prompt selectionType="RANDOM">
+												<item>The Tucson, AZ campus is located at: [##TUCSON-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Las Vegas</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Nevada</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_LAS_VEGAS">
+											<prompt selectionType="RANDOM">
+												<item>The Las Vegas, NV campus is located at: [##LAS-VEGAS-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">El Paso</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Texas</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_EL_PASO">
+											<prompt selectionType="RANDOM">
+												<item>The El Paso, TX campus is located at: [##EL-PASO-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Houston</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Texas</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_HOUSTON">
+											<prompt selectionType="RANDOM">
+												<item>The Houston, TX campus is located at: [##HOUSTON-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Colorado Springs</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Colorado</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_COLORADE_SPRINGS">
+											<prompt selectionType="RANDOM">
+												<item>The Colorado Springs, CO campus is located at: [##COLORADO-SPRINGS-CAMPUS-ADDRESS##]. Those north of the city might also be interested in our 2 Denver area campuses.</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Seattle</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Washington</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_SEATTLE">
+											<prompt selectionType="RANDOM">
+												<item>PMI operates 2 campuses in or around Seattle, WA.  The Seattle, WA campus is located at: [##SEATTLE-CAMPUS-ADDRESS##].  The Renton, WA campus is located at: [##RENTON-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_city" operator="EQUALS">Phoenix</cond>
+									<if matchType="ANY">
+										<cond varName="campus_state" operator="EQUALS">Arizona</cond>
+										<cond varName="campus_state" operator="IS_BLANK"/>
+										<output id="output_CAMPUS_PHOENIX">
+											<prompt selectionType="RANDOM">
+												<item>PMI operates 3 campuses in or around Phoenix, AZ.  The Phoenix, AZ campus is located at: [##PHOENIX-CAMPUS-ADDRESS##].  The Mesa, AZ campus is located at: [##MESA-CAMPUS-ADDRESS##]. And the East Valley campus is located at: [##EAST-VALLEY-CAMPUS-ADDRESS##].</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_CAMPUS"/>
+								</if>
+								<goto ref="output_CAMPUS"/>
+							</output>
+						</input>
+						<!-- LOOK BY AREAS OR STATES -->							
+						<input>
+							<grammar>
+								<item>$ (Campus_State)={campus_state}</item>
+								<item>$ (Campus_Area)={campus_area}</item>
+							</grammar>
+							<output>
+								<action varName="campus_state" operator="SET_TO">{campus_state.value:main}</action>
+								<action varName="campus_area" operator="SET_TO">{campus_area.value:main}</action>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">Denver</cond>
+									<cond varName="campus_area" operator="EQUALS">Colorado Springs</cond>
+									<cond varName="campus_state" operator="EQUALS">Colorado</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>PMI operates 3 campuses in Colorado.  The Denver, CO campus is located at: [##DENVER-CAMPUS-ADDRESS##].  The Aurora, CO campus is located at: [##AROURA-CAMPUS-ADDRESS##]. The Colorado Springs, CO campus is located at: [##COLORADO-SPRINGS-CAMPUS-ADDRESS##].</item>
+										</prompt>
+									</output>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">El Paso</cond>
+									<cond varName="campus_area" operator="EQUALS">Houston</cond>
+									<cond varName="campus_state" operator="EQUALS">Texas</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>The Houston, TX campus is located at: [##HOUSTON-CAMPUS-ADDRESS##]. The El Paso, TX campus is located at: [##EL-PASO-CAMPUS-ADDRESS##].</item>
+										</prompt>
+									</output>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">Tucson</cond>
+									<cond varName="campus_area" operator="EQUALS">Phoenix</cond>
+									<cond varName="campus_state" operator="EQUALS">Arizona</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>PMI operates 4 campuses in Arizona.  The Phoenix, AZ campus is located at: [##PHOENIX-CAMPUS-ADDRESS##].  The Mesa, AZ campus is located at: [##MESA-CAMPUS-ADDRESS##]. And the East Valley campus is located at: [##EAST-VALLEY-CAMPUS-ADDRESS##]. The Tucson, AZ campus is located at: [##TUCSON-CAMPUS-ADDRESS##].</item>
+										</prompt>
+									</output>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">San Diego</cond>
+									<cond varName="campus_state" operator="EQUALS">California</cond>
+									<goto ref="output_CAMPUS_CHULA_VISTA"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">Albuquerque</cond>
+									<cond varName="campus_state" operator="EQUALS">New Mexico</cond>
+									<goto ref="output_CAMPUS_ALBUQUERQUE"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">Seattle</cond>
+									<cond varName="campus_state" operator="EQUALS">Washington</cond>
+									<goto ref="output_CAMPUS_SEATTLE"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="campus_area" operator="EQUALS">Las Vegas</cond>
+									<cond varName="campus_state" operator="EQUALS">Nevada</cond>
+									<goto ref="output_CAMPUS_SEATTLE"/>
+								</if>
+								<goto ref="output_CAMPUS"/>
+							</output>
+						</input>
+						<output id="output_CAMPUS">
+							<prompt selectionType="RANDOM">
+								<item>PMI operates 15 campuses in 7 states, but not one in that area. Please enter your zip code so I can locate the campus nearest to you.</item>
+							</prompt>
+							<getUserInput id="getUserInput_ZIP">
+								<input>
+									<grammar>
+										<item>! \d{5}</item>
+										<item>! \d{9}</item>
+										<item>! \d{5}-\d{4}</item>
+									</grammar>
+									<action varName="zip_code" operator="SET_TO_USER_INPUT"></action>
+									<goto ref="output_VALID_ZIP"/>
+								</input>
+								<output>
+									<prompt selectionType="RANDOM">
+										<item>That is not a valid zip code. Can you please re-enter.</item>
+									</prompt>
+									<goto ref="getUserInput_ZIP"/>
+								</output>
+							</getUserInput>
+							<output id="output_VALID_ZIP">
+								<prompt selectionType="RANDOM">
+									<item>[##ZIP CODE: {zip_code} VALIDATED##]</item>
+								</prompt>
+							</output>
+						</output>
+					</input>
+				</folder>
+				<folder label="Program" id="folder_Online">
+					<input>
+						<action varName="program_type" operator="SET_TO_BLANK"/>
+						<action varName="major" operator="SET_TO_BLANK"/>
+						<!--Asking about programs in general -->
+						<grammar>
+							<item>$ [##ONLINE##]</item>
+						</grammar>
+						<!--Asking about online delivery -->
+						<input>
+							<grammar>
+								<item>$ (Program_Type)={program_type} (Major)={major}</item>
+								<item>$ (Program_Type)={program_type} * (Major)={major}</item>
+								<item>$ (Major)={major} (Program_Type)={program_type}</item>
+								<item>$ (Major)={major} * (Program_Type)={program_type}</item>
+								<item>$ (Major)={major}</item>
+								<item>$ (Program_Type)={program_type}</item>
+							</grammar>
+							<output>
+								<action varName="program_type" operator="SET_TO">{program_type.value:main}</action>
+								<action varName="major" operator="SET_TO">{major.value:main}</action>
+								<if matchType="ALL">
+									<cond varName="program_type" operator="IS_BLANK"/>
+									<cond varName="major" operator="EQUALS">Health Care Administration</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>You can get either a bachelors or an associates degree in {major} online.</item>
+										</prompt>
+									</output>
+								</if>
+								<if matchType="ANY">
+									<cond varName="program_type" operator="EQUALS">bachelor</cond>
+									<if matchType="ANY">
+										<cond varName="major" operator="EQUALS">Nursing</cond>
+										<cond varName="major" operator="EQUALS">Health Care Administration</cond>
+										<cond varName="major" operator="EQUALS">Physical Therapist Assistant</cond>
+										<cond varName="major" operator="EQUALS">Radiologic Sciences</cond>
+										<cond varName="major" operator="EQUALS">Respiratory Therapy</cond>
+										<output>
+											<prompt selectionType="RANDOM">
+												<item>You can get a bachelors degree in {major} online.</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_ONLINE"/>
+								</if>
+								<if matchType="ANY">
+									<cond varName="program_type" operator="EQUALS">associate</cond>
+									<if matchType="ANY">
+										<cond varName="major" operator="EQUALS">Advanced Placement Track Radiography</cond>
+										<cond varName="major" operator="EQUALS">Health Care Administration</cond>
+										<output>
+											<prompt selectionType="RANDOM">
+												<item>You can get an associate degree in {major} online.</item>
+											</prompt>
+										</output>
+									</if>
+									<goto ref="output_ONLINE"/>
+								</if>
+								<goto ref="output_ONLINE"/>
+							</output>
+						</input>
+						<output id="output_ONLINE">
+							<prompt selectionType="RANDOM">
+								<item>You can get any of our bachelor's degrees online -- Nursing, Health Care Administration, Physical Therapist Assistant, Radiologic Sciences, and Respiratory Therapy. We also offer these associate degrees online -- Advanced Placement Track Radiography and Health Care Administration. Currently, we offer our certificate programs only "onground" at PMI campuses.</item>
+							</prompt>
+						</output>
+					</input>
+				</folder>
+				<folder label="Program" id="folder_Program">
+					<input>
+						<action varName="program_type" operator="SET_TO_BLANK"/>
+						<action varName="major" operator="SET_TO_BLANK"/>
+						<!--Asking about programs in general -->
+						<grammar>
+							<item>$ [##PROGRAMS##]</item>
+						</grammar>
+						<input>
+							<!--Asking about specific majors -->
+							<grammar>
+								<item>$ (Program_Type)={program_type} (Major)={major}</item>
+								<item>$ (Program_Type)={program_type} * (Major)={major}</item>
+								<item>$ (Major)={major} (Program_Type)={program_type}</item>
+								<item>$ (Major)={major} * (Program_Type)={program_type}</item>
+								<item>$ (Major)={major}</item>
+							</grammar>
+							<output id="output_MAJOR">
+								<action varName="program_type" operator="SET_TO">{program_type.value:main}</action>
+								<action varName="major" operator="SET_TO">{major.value:main}</action>
+								<!-- associate programs -->
+								<if matchType="ANY">
+									<cond varName="major" operator="EQUALS">Dental Hygiene</cond>
+									<cond varName="major" operator="EQUALS">Occupational Therapy Assistant</cond>
+									<cond varName="major" operator="EQUALS">Ophthalmic Medical Technician</cond>
+									<cond varName="major" operator="EQUALS">Paramedic</cond>
+									<cond varName="major" operator="EQUALS">Physical Therapist Assistant</cond>
+									<cond varName="major" operator="EQUALS">Radiography</cond>
+									<cond varName="major" operator="EQUALS">Surgical Technology</cond>
+									<cond varName="major" operator="EQUALS">Veterinary Technician</cond>
+									<action varName="program_type" operator="SET_TO">associate</action>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>You can find more information about our associate's degree program for {major} here: pmi.edu/associate/872839a838</item>
+										</prompt>
+									</output>
+								</if>
+								<!-- bachelor programs -->
+								<if matchType="ANY">
+									<cond varName="major" operator="EQUALS">Radiologic Sciences</cond>
+									<action varName="program_type" operator="SET_TO">bachelor</action>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>You can find more information about our bachelor's degree program for {major} here: pmi.edu/bachelor/444337a928</item>
+										</prompt>
+									</output>
+								</if>
+								<!-- certificate programs -->
+								<if matchType="ANY">
+									<cond varName="major" operator="EQUALS">Central Sterile Processing</cond>
+									<cond varName="major" operator="EQUALS">Dental Assistant</cond>
+									<cond varName="major" operator="EQUALS">Diagnostic Medical Sonography</cond>
+									<cond varName="major" operator="EQUALS">Emergency Medical Technician</cond>
+									<cond varName="major" operator="EQUALS">Medical Administrative Assistant</cond>
+									<cond varName="major" operator="EQUALS">Medical Assistant</cond>
+									<cond varName="major" operator="EQUALS">Nursing Assistant</cond>
+									<cond varName="major" operator="EQUALS">Patient Care Technician</cond>
+									<cond varName="major" operator="EQUALS">Pharmacy Technician</cond>
+									<cond varName="major" operator="EQUALS">Phlebotomy Technician</cond>
+									<cond varName="major" operator="EQUALS">Veterinary Assistant</cond>
+									<action varName="program_type" operator="SET_TO">certificate</action>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>You can find more information about our certificate program for {major} here: pmi.edu/certificate/138827a928</item>
+										</prompt>
+									</output>
+								</if>
+								<!-- ba or aa programs -->
+								<if matchType="ANY">
+									<cond varName="major" operator="EQUALS">Health Care Administration</cond>
+									<cond varName="major" operator="EQUALS">Nursing</cond>
+									<cond varName="major" operator="EQUALS">Physical Therapist Assistant</cond>
+									<cond varName="major" operator="EQUALS">Respiratory Therapy</cond>
+									<if>
+										<cond varName="program_type" operator="HAS_VALUE"/>
+										<output>
+											<prompt selectionType="RANDOM">
+												<item>We offer both a bachelor and associate degree for {major}. You can find more information about our {major} {program_type} program here: pmi.edu/{program_type}/334599a923</item>
+											</prompt>
+										</output>
+									</if>
+									<if>
+										<cond varName="program_type" operator="IS_BLANK"/>
+										<output>
+											<prompt selectionType="RANDOM">
+												<item>We offer both a bachelor and associate degree for {major}.</item>
+											</prompt>
+										</output>
+									</if>
+								</if>
+							</output>
+						</input>
+						<!--Asking about specific program types, i.e. bachelor, associate, or certificates -->
+						<input>
+							<grammar>
+							<item>$ management</item>
+							</grammar>
+							<output>
+								<prompt selectionType="RANDOM">
+									<item>[##MANAGEMENT CAREERS##]</item>
+								</prompt>
+							</output>
+						</input>
+						<input>
+							<grammar>
+							<item>$ (Program_Type)={program_type}</item>
+							</grammar>
+							<output>
+								<action varName="program_type" operator="SET_TO">{program_type.value:main}</action>
+								<!--Asking about bachelor programs -->
+								<if matchType="ANY">
+									<cond varName="program_type" operator="EQUALS">bachelor</cond>
+									<output id="output_BACHELOR">
+										<prompt selectionType="RANDOM">
+											<item>We offer Bachelor degrees in: Health Care Administration, Nursing, Physical Therapist Assistant, Radiologic Sciences, and Respiratory Therapy.</item>
+										</prompt>
+									</output>
+								</if>
+								<!--Asking about associate programs -->
+								<if matchType="ANY">
+									<cond varName="program_type" operator="EQUALS">associate</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>We offer Associate's degrees in: Advanced Placement Track Radiography, Dental Hygiene, Health Care Administration, Nursing, Occupational Therapy Assistant, Ophthalmic Medical Technician, Paramedic, Physical Therapist Assistant, Radiography, Respiratory Therapy, Surgical Technology, and Veterinary Technician.</item>
+										</prompt>
+									</output>
+								</if>
+								<!--Asking about certificate programs -->
+								<if matchType="ANY">
+									<cond varName="program_type" operator="EQUALS">certificate</cond>
+									<output>
+										<prompt selectionType="RANDOM">
+											<item>We offer Certificate programs for: Central Sterile Processing, Dental Assistant, Diagnostic Medical Sonography, Emergency Medical Technician, Medical Administrative Assistant, Medical Assistant, Nursing Assistant/Nurse Aide, Patient Care Technician, Pharmacy Technician, Phlebotomy Technician, Veterinary Assistant.</item>
+										</prompt>
+									</output>
+								</if>
+							</output>
+						</input>
+						<output>
+							<!--General response when no more specific interest identified -->
+							<prompt selectionType="RANDOM">
+								<item>PMI prepares people for exciting careers in healthcare. We offer both Associate and Bachelor degree programs, as well as Certificate programs and individual courses.</item>
+							</prompt>
+						</output>
+					</input>
+				</folder>
+			</folder>
+		</folder>
+		<folder label="Global"/>
+		<folder label="Concepts">
+			<concept>
+				<grammar>
+					<item>yes</item>
+					<item>yeah</item>
+					<item>yup</item>
+					<item>yessir</item>
+					<item>yes sir</item>
+					<item>affirmative</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+					<item>no</item>
+					<item>nah</item>
+					<item>nope</item>
+					<item>negative</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+					<item>online</item>
+					<item>on-line</item>
+					<item>over the internet</item>
+					<item>on the internet</item>
+					<item>via the internet</item>
+					<item>over the web</item>
+					<item>on the web</item>
+					<item>via the web</item>
+					<item>on the computer</item>
+					<item>with the computer</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+					<item>onground</item>
+					<item>on-ground</item>
+					<item>at the campus</item>
+					<item>at a campus</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+					<item>campus</item>
+					<item>school</item>
+					<item>location</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+                    <item>courses</item>
+					<item>programs</item>
+					<item>program</item>
+					<item>majors</item>
+					<item>major</item>
+					<item>degrees</item>
+					<item>degree</item>
+					<item>certificates</item>
+				</grammar>
+            </concept>
+			<concept>
+				<grammar>
+                    <item>management</item>
+					<item>leadership</item>
+				</grammar>
+            </concept>
+		</folder>
+	</flow>
+	<entities>
+		<entity name="Major">
+			<value name="Health Care Administration" value="Health Care Administration">
+				<grammar>
+					<item>HCA</item>
+				</grammar>
+			</value>
+			<value name="Nursing" value="Nursing">
+				<grammar>
+					<item>Nursing (RN to BSN)</item>
+					<item>RN</item>
+					<item>BSN</item>
+				</grammar>
+			</value>
+			<value name="Physical Therapist Assistant" value="Physical Therapist Assistant">
+				<grammar>
+					<item>PTA</item>
+					<item>Physical Therapy</item>
+				</grammar>
+			</value>
+			<value name="Respiratory Therapy" value="Respiratory Therapy">
+				<grammar>
+					<item>RT</item>
+				</grammar>
+			</value>
+			<value name="Radiogrpahy" value="Radiogrpahy">
+				<grammar>
+					<item>Radiogrpahy</item>
+				</grammar>
+			</value>
+			<value name="Advanced Placement Track Radiography" value="Advanced Placement Track Radiography">
+				<grammar>
+					<item>Advanced Placement Track Radiography</item>
+				</grammar>
+			</value>
+			<value name="Dental Hygiene" value="Dental Hygiene">
+				<grammar>
+					<item>Dental Hygiene</item>
+				</grammar>
+			</value>
+			<value name="Occupational Therapy Assistant" value="Occupational Therapy Assistant">
+				<grammar>
+					<item>OCA</item>
+				</grammar>
+			</value>
+			<value name="Ophthalmic Medical Technician" value="Ophthalmic Medical Technician">
+				<grammar>
+					<item>OMT</item>
+				</grammar>
+			</value>
+			<value name="Paramedic" value="Paramedic">
+				<grammar>
+					<item>Paramedic</item>
+				</grammar>
+			</value>
+			<value name="Surgical Technology" value="Surgical Technology">
+				<grammar>
+					<item>Surgical Technology</item>
+				</grammar>
+			</value>
+			<value name="Veterinary Technician" value="Veterinary Technician">
+				<grammar>
+					<item>Vet Tech</item>
+					<item>Vet Tec</item>
+					<item>Vettec</item>
+					<item>Vettech</item>
+					<item>Vetinary *</item>
+					<item>Vetrinary *</item>
+				</grammar>
+			</value>
+			<value name="Central Sterile Processing" value="Central Sterile Processing">
+				<grammar>
+					<item>Central Sterile Processing</item>
+				</grammar>
+			</value>
+			<value name="Dental Assistant" value="Dental Assistant">
+				<grammar>
+					<item>Dental Assistant</item>
+				</grammar>
+			</value>
+			<value name="Diagnostic Medical Sonography" value="Diagnostic Medical Sonography">
+				<grammar>
+					<item>DMS</item>
+				</grammar>
+			</value>
+			<value name="Emergency Medical Technician" value="Emergency Medical Technician">
+				<grammar>
+					<item>EMT</item>
+				</grammar>
+			</value>
+			<value name="Medical Administrative Assistant" value="Medical Administrative Assistant">
+				<grammar>
+					<item>MAA</item>
+				</grammar>
+			</value>
+			<value name="Medical Assistant" value="Medical Assistant">
+				<grammar>
+					<item>MA</item>
+				</grammar>
+			</value>
+			<value name="Nursing Assistant" value="Nursing Assistant">
+				<grammar>
+					<item>Nurse Aide</item>
+					<item>Nurses Aide</item>
+					<item>Nurse Aid</item>
+					<item>Nurses Aid</item>
+				</grammar>
+			</value>
+			<value name="Patient Care Technician" value="Patient Care Technician">
+				<grammar>
+					<item>PCT</item>
+				</grammar>
+			</value>
+			<value name="Pharmacy Technician" value="Pharmacy Technician">
+				<grammar>
+					<item>Pharmacy Technician</item>
+				</grammar>
+			</value>
+			<value name="Phlebotomy Technician" value="Phlebotomy Technician">
+				<grammar>
+					<item>Phlebotomy Technician</item>
+				</grammar>
+			</value>
+			<value name="Veterinary Assistant" value="Veterinary Assistant">
+				<grammar>
+					<item>Vet Assistant</item>
+					<item>Vetinary Assistant</item>
+					<item>Vetrinary Assistant</item>
+				</grammar>
+			</value>
+			<value name="Radiologic Sciences" value="Radiologic Sciences">
+				<grammar>
+					<item>Radiologic Science</item>
+				</grammar>
+			</value>
+		</entity>
+		<entity name="Program_Type">
+			<value name="bachelor" value="bachelor">
+                <grammar>
+                    <item>bachelor</item>
+                    <item>bachelor's</item>
+                    <item>bachelors</item>
+                    <item>batchlors</item>
+                    <item>batchlor</item>
+                    <item>batch</item>
+                    <item>bat</item>
+                    <item>ba</item>
+                    <item>4 year</item>
+                    <item>4 years</item>
+                </grammar>
+			</value>
+			<value name="associate" value="associate">
+                <grammar>
+                    <item>associate</item>
+                    <item>associate's</item>
+                    <item>associates</item>
+                    <item>aa</item>
+                    <item>assoc</item>
+                    <item>2 year</item>
+                    <item>2 years</item>
+                </grammar>
+			</value>
+			<value name="certificate" value="certificate">
+                <grammar>
+                    <item>certificate</item>
+                    <item>certificates</item>
+                    <item>cert</item>
+                    <item>certification</item>
+                    <item>certified</item>
+                    <item>non-degree</item>
+                    <item>no degree</item>
+                </grammar>
+			</value>
+		</entity>
+		<entity name="Campus_Area">
+			<value name="Albuquerque" value="Albuquerque">
+                <grammar>
+                    <item>Albuquerque</item>
+                    <item>Abq</item>
+                    <item>New Mexico</item>
+                    <item>NM</item>
+                </grammar>
+			</value>
+			<value name="Denver" value="Denver">
+                <grammar>
+                    <item>Denver</item>
+                    <item>Aurora</item>
+                </grammar>
+			</value>
+			<value name="Colorado Springs" value="Colorado Springs">
+                <grammar>
+                    <item>Colorado Springs</item>
+                </grammar>
+			</value>
+			<value name="San Diego" value="San Diego">
+                <grammar>
+                    <item>San Diego</item>
+                    <item>Chula Vista</item>
+                    <item>So Cal</item>
+                    <item>SoCal</item>
+                    <item>Southern California</item>
+                    <item>Los Angeles</item>
+                    <item>LA</item>
+                    <item>Orange County</item>
+                    <item>Carlsbad</item>
+                    <item>Temecula</item>
+                    <item>Oceanside</item>
+                    <item>Anaheim</item>
+                </grammar>
+			</value>
+			<value name="Phoenix" value="Phoenix">
+                <grammar>
+                    <item>Phoenix</item>
+                    <item>Mesa</item>
+                    <item>East Valley</item>
+                </grammar>
+			</value>
+			<value name="Tucson" value="Tucson">
+                <grammar>
+                    <item>Tucson</item>
+                    <item>Sierra Vista</item>
+                    <item>Marana</item>
+                </grammar>
+			</value>
+			<value name="El Paso" value="El Paso">
+                <grammar>
+                    <item>El Paso</item>
+                    <item>West TX</item>
+                    <item>West Texas</item>
+                </grammar>
+			</value>
+			<value name="Houston" value="Houston">
+                <grammar>
+                    <item>Houston</item>
+                    <item>East TX</item>
+                    <item>East Texas</item>
+                </grammar>
+			</value>
+			<value name="Las Vegas" value="Las Vegas">
+                <grammar>
+                    <item>Las Vegas</item>
+                    <item>Nevada</item>
+                </grammar>
+			</value>
+			<value name="Seattle" value="Seattle">
+                <grammar>
+                    <item>Seattle</item>
+                    <item>Renton</item>
+                    <item>Portland</item>
+                    <item>Washington</item>
+                    <item>WA</item>
+                    <item>Oregon</item>
+                    <item>OR</item>
+                </grammar>
+			</value>
+		</entity>
+		<entity name="Campus_State">
+			<value name="New Mexico" value="New Mexico">
+                <grammar>
+                    <item>New Mexico</item>
+                    <item>NM</item>
+                </grammar>
+			</value>
+			<value name="Colorado" value="Colorado">
+                <grammar>
+                    <item>Colorado</item>
+                    <item>CO</item>
+                    <item>Colo</item>
+                </grammar>
+			</value>
+			<value name="California" value="California">
+                <grammar>
+                    <item>California</item>
+                    <item>CA</item>
+                </grammar>
+			</value>
+			<value name="Arizona" value="Arizona">
+                <grammar>
+                    <item>Arizona</item>
+                    <item>AZ</item>
+                </grammar>
+			</value>
+			<value name="Pennsylvania" value="Pennsylvania">
+                <grammar>
+                    <item>Pennsylvania</item>
+                    <item>PA</item>
+                </grammar>
+			</value>
+			<value name="Texas" value="Texas">
+                <grammar>
+                    <item>Texas</item>
+                    <item>TX</item>
+                </grammar>
+			</value>
+			<value name="Washington" value="Washington">
+                <grammar>
+                    <item>Washington</item>
+                    <item>WA</item>
+                </grammar>
+			</value>
+			<value name="Nevada" value="Nevada">
+                <grammar>
+                    <item>Nevada</item>
+                    <item>NV</item>
+                </grammar>
+			</value>
+		</entity>
+		<entity name="Campus_City">
+			<value name="Albuquerque" value="Albuquerque">
+                <grammar>
+                    <item>Albuquerque</item>
+                    <item>Abq</item>
+                </grammar>
+			</value>
+			<value name="Denver" value="Denver">
+                <grammar>
+                    <item>Denver</item>
+                    <item>Aurora</item>
+                </grammar>
+			</value>
+			<value name="Colorado Springs" value="Colorado Springs">
+                <grammar>
+                    <item>Colorado Springs</item>
+                </grammar>
+			</value>
+			<value name="San Diego" value="San Diego">
+                <grammar>
+                    <item>Chula Vista</item>
+                    <item>San Diego</item>
+                </grammar>
+			</value>
+			<value name="Phoenix" value="Phoenix">
+                <grammar>
+                    <item>Phoenix</item>
+                    <item>Mesa</item>
+                    <item>East Valley</item>
+                </grammar>
+			</value>
+			<value name="Tucson" value="Tucson">
+                <grammar>
+                    <item>Tucson</item>
+                </grammar>
+			</value>
+			<value name="El Paso" value="El Paso">
+                <grammar>
+                    <item>El Paso</item>
+                </grammar>
+			</value>
+			<value name="Houston" value="Houston">
+                <grammar>
+                    <item>Houston</item>
+                </grammar>
+			</value>
+			<value name="Seattle" value="Seattle">
+                <grammar>
+                    <item>Seattle</item>
+                    <item>Renton</item>
+                </grammar>
+			</value>
+		</entity>
+	</entities>
+	<variables>
+		<var_folder name="Home">
+			<var name="program_type" type="TEXT"/>
+			<var name="program" type="TEXT"/>
+			<var name="major" type="TEXT"/>
+			<var name="delivery" type="TEXT"/>
+			<var name="campus_area" type="TEXT"/>
+			<var name="campus_state" type="TEXT"/>
+			<var name="campus_city" type="TEXT"/>
+			<var name="zip_code" type="TEXT"/>
+		</var_folder>
+    </variables>
+	<settings>
+		<setting name="USE_CONCEPTS">3</setting>
+        <setting name="ENTITIES_SCOPE">3</setting>
+	</settings>
+</dialog>

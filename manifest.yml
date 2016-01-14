@@ -1,0 +1,9 @@
+---
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  name: Q-and-A-Service-ayersds-1946
+  host: Q-and-A-Service-ayersds-1946
+  disk_quota: 1024M
+  buildpack: python_buildpack

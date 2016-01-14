@@ -1,0 +1,205 @@
+---
+stages:
+- name: build
+  inputs:
+  - type: git
+    branch: master
+  triggers:
+  - type: commit
+  jobs:
+  - name: Build
+    type: builder
+    artifact_dir: ''
+- name: configure and deploy
+  inputs:
+  - type: job
+    stage: build
+    job: Build
+  triggers:
+  - type: stage
+  properties:
+  - name: CLASSIFIER_ID
+    value: ''
+    type: text
+  - name: RANKER_ID
+    value: ''
+    type: text
+  - name: SOLR_CLUSTER_ID
+    value: ''
+    type: text
+  - name: DIALOG_ID
+    value: ''
+    type: text
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
+      application: ${CF_APP}
+    script: |-
+      #!/bin/bash
+      # Create and bind services
+      cf create-service natural_language_classifier standard "${CF_APP}-classifier"
+      cf create-service dialog standard "${CF_APP}-dialog"
+      cf create-service retrieve_and_rank standard "${CF_APP}-randr"
+      cf push "${CF_APP}" -n "${CF_APP}" --no-start
+      cf bind-service "${CF_APP}" "${CF_APP}-classifier"
+      cf bind-service "${CF_APP}" "${CF_APP}-dialog"
+      cf bind-service "${CF_APP}" "${CF_APP}-randr"
+      
+      # Retrieve classifier and dialog credentials
+
+      classifier_username=`cf env ${CF_APP} | grep username -m 2 | tail -1 | awk '{print $2}'`
+      classifier_username=${classifier_username:1:${#classifier_username}-2}
+      echo "classifier username = $classifier_username"
+      classifier_password=`cf env ${CF_APP} | grep password -m 2 | tail -1 | awk '{print $2}'`
+      classifier_password=${classifier_password:1:${#classifier_password}-3}
+      echo "classifier_password ="
+      echo $classifier_password
+      dialog_username=`cf env ${CF_APP} | grep username -m 1 | awk '{print $2}'`
+      dialog_username=${dialog_username:1:${#dialog_username}-2}
+      echo "dialog_username = "
+      echo $dialog_username
+      dialog_password=`cf env ${CF_APP} | grep password -m 1 | awk '{print $2}'`
+      dialog_password=${dialog_password:1:${#dialog_password}-3}
+      echo "dialog_password= "
+      echo $dialog_password
+      randr_password=`cf env ${CF_APP} | grep password | tail -1 | awk '{print $2}'`
+      randr_password=${randr_password:1:${#randr_password}-3}
+      echo "Retrieve and rank password = "
+      echo $randr_password
+      randr_username=`cf env ${CF_APP} | grep username | tail -1 | awk '{print $2}'`
+      randr_username=${randr_username:1:${#randr_username}-2}
+      echo "Retrieve and rank username = "
+      echo $randr_username
+
+      # Retrieve CLASSIFIER_ID and set to env variable
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      echo "sending request for classifier_id"
+      output=`curl -u $classifier_username:$classifier_password -k -F training_data=@classifier/training-questions.csv -F training_metadata="{\"language\":\"en\",\"name\":\"Program-Advisor-Classifier\"}" https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers`
+      echo $output
+      output=`echo $output | awk '{print $4}'`
+      output=${output:1:${#output}-3}
+      export CLASSIFIER_ID=$output
+      else
+      CLASSIFIER_ID=`curl -u $classifier_username:$classifier_password https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers | grep classifier_id -m 1 | awk '{print $3}'`
+      CLASSIFIER_ID=${CLASSIFIER_ID:1:${#CLASSIFIER_ID}-3}
+      fi
+
+      cf set-env ${CF_APP} CLASSIFIER_ID ${CLASSIFIER_ID}
+
+
+      # Sending request for DIALOG_ID
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      random=`shuf -i 2000-65000 -n 1`
+      name="${random}${BUILD_NUMBER}"
+      response=`curl -u $dialog_username:$dialog_password -k -X POST --form file=@dialog-script/Dialog_PMI.xml --form name=$name https://gateway.watsonplatform.net/dialog/api/v1/dialogs`
+      response=`echo $response | awk '{print $2}'`
+      response=${response:1:${#response}-3}
+      export DIALOG_ID=$response
+      else
+      DIALOG_ID=`curl -u $dialog_username:$dialog_password https://gateway.watsonplatform.net/dialog/api/v1/dialogs | awk -F"," '{print $2}' | awk -F":" '{print $2}'`
+      DIALOG_ID=${DIALOG_ID:1:${#DIALOG_ID}-3}
+      fi
+
+      cf set-env ${CF_APP} DIALOG_ID ${DIALOG_ID}
+      
+      
+      # Create a Solr cluster
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      echo "creating solr cluster for retrieve and rank"
+      SOLR_CLUSTER_ID=`curl -X POST -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters -d ""`
+      SOLR_CLUSTER_ID=`echo $SOLR_CLUSTER_ID | awk -F"," '{print $1}' | awk -F":" '{print $2}'`
+      SOLR_CLUSTER_ID=${SOLR_CLUSTER_ID:1:${#SOLR_CLUSTER_ID}-2}
+      else
+      curl -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters
+      SOLR_CLUSTER_ID=`curl -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters | awk -F"," '{print $1}' | awk -F":" '{print $3}'`
+      SOLR_CLUSTER_ID=${SOLR_CLUSTER_ID:1:${#SOLR_CLUSTER_ID}-2}
+      fi
+
+      cf set-env ${CF_APP} SOLR_CLUSTER_ID ${SOLR_CLUSTER_ID}
+
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      # Wait for cluster to become ready
+
+      echo "waiting for cluster to become ready"
+      status=`curl -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/$SOLR_CLUSTER_ID | awk -F"," '{print $4}' | awk -F":" '{print $2}' | awk -F"}" '{print $1}'`
+      status=${status:1:${#status}-2}
+
+      while [[  $status != "READY" ]]; do
+
+             status=`curl -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/$SOLR_CLUSTER_ID | awk -F"," '{print $4}' | awk -F":" '{print $2}' | awk -F"}" '{print $1}'`
+            status=${status:1:${#status}-2}
+            echo $status
+            sleep 30
+      done
+
+
+      # Create a collection
+      echo "Create a collection"
+      curl -X POST -H "Content-Type: application/zip" -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/config/example-config --data-binary @r-and-r/pmi_solr_config.zip
+
+      curl -X POST -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/admin/collections -d "action=CREATE&name=example-collection&collection.configName=example-config"
+
+      # Add documents to collection
+      echo "Add documents to collection"
+      curl -X POST -H "Content-Type: application/json" -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/example-collection/update --data-binary @r-and-r/pmi_data.json
+
+      sleep 30
+      fi
+
+
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      python ./train.py -u ${randr_username}:${randr_password} -i r-and-r/pmi_gt.csv -c ${SOLR_CLUSTER_ID} -x example-collection -n "example-ranker"
+
+
+      RANKER_ID=`curl -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers | awk -F":" '{print $3}' | awk -F"," '{print $1}'`
+      RANKER_ID=${RANKER_ID:1:${#RANKER_ID}-2}
+      else
+
+      RANKER_ID=`curl -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers | awk -F":" '{print $3}' | awk -F"," '{print $1}'`
+      RANKER_ID=${RANKER_ID:1:${#RANKER_ID}-2}
+
+      fi
+
+      cf set-env ${CF_APP} RANKER_ID ${RANKER_ID}
+
+
+      #Wait for ranker id to come available
+
+      if [ ${BUILD_NUMBER} == 1 ]
+      then
+      echo "Wait for ranker id to become available"
+      ranker_status=`curl -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers/${RANKER_ID} | awk -F"," '{print $5}' | awk -F":" '{print $2}'`
+      ranker_status=${ranker_status:1:${#ranker_status}-2}
+
+      while [[  $ranker_status != "Available" ]]; do
+
+         ranker_status=`curl -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers/${RANKER_ID} | awk -F"," '{print $5}' | awk -F":" '{print $2}'`
+         ranker_status=${ranker_status:1:${#ranker_status}-2}
+         echo $ranker_status
+         sleep 20
+
+      done
+
+      echo "Waiting for classifier to become available "
+      state="Training"
+      while [[  $state == "Training" ]]; do
+              state=`curl -u $classifier_username:$classifier_password https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/$output`
+              state=`echo $state | awk '{print $19}'`
+              state=${state:1:${#state}-3}
+              echo $state
+              sleep 20
+      done
+      fi
+
+      # Start the application
+      echo "starting the application"
+      cf start ${CF_APP}

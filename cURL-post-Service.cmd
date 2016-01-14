@@ -1,0 +1,1 @@
+curl -X POST -H "Content-Type:application/json" -d "{\"question\":\"Can I get a degree in HCA?\", \"client_id\":\"156008\", \"conversation_id\":\"164662\"}" "http://localhost:5000/service/"
