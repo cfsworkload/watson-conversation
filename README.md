@@ -4,12 +4,11 @@
 The Program-Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
 
 ##Introduction
-This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. 
+This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
 
-When you deploy the pipeline to Blumix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
-
-1. Select the **Deploy to Bluemix** button below. [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
-2.  Once you fill in the necessary fields, click **DEPLOY**. This will start the deployment of **Engagement advisro** and the static services used with the application.
+1. Select the **Deploy to Bluemix** button below.
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
+2.  Once you fill in the necessary fields, click **DEPLOY**. This will start the deployment of **Engagement advisor** and the static services used with the application.
 
 ## Monitor deployment
 
