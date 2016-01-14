@@ -1,34 +1,32 @@
-#Program-Advisor
+# Workload Program-Advisor
+
 ##Learn about education offerings using automated chat
 The Program-Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
+
 ##Introduction
-This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. You will attach the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services. Once the application is set up, you will be able to ask questions about academic programs offered by a fictitious career college through a chat window.
-If you already know how Bluemix works and you want to automate forking the project, and editing the launch configuration, click the **Deploy to Bluemix** button below. Once the deployment is finished, jump to **How the app works**.
+This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. 
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
+When you deploy the pipeline to Blumix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
 
-##Fork the Project to your personal DevOps space
+1. Select the **Deploy to Bluemix** button below. [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
+2.  Once you fill in the necessary fields, click **DEPLOY**. This will start the deployment of **Engagement advisro** and the static services used with the application.
 
-First, fork the publicly accessible repository hosted in http://hub.jazz.net to your personal DevOps space. This will allow you to deploy the app to Bluemix, create instances of the app, and attach services to the app.
+## Monitor deployment
 
-1. Navigate to the tutorial's repository.
-2. In top right of the page, click Fork Project. A pop-up menu will appear where you'll provide information about the forked project.
-3. In Name your project, enter a unique name for your project.
-4. Select an Organization and Space for your project, then click CREATE.
-Edit launch configurations
-Next, you'll edit the launch configurations in order to deploy your app.
-5. After the project is successfully forked, click EDIT CODE in the upper-right corner of the screen.
-6. In the top navigation bar, click the drop-down menu and click the pencil icon to the right of the app name to edit the launch configuration. A dialog box will appear and you will be required to enter information about where the code will be deploy.
-7. Check that your Target, Organization, and Space are correct.
-8. Enter a unique name in the Application Name field. This creates the route that you will use to navigate to your web app after deployment.
-9. Enter the same application name into the Host field.
-10. Verify that the Domain field is correct and click Save.
-11. Click the play icon to the right of the drop-down menu to deploy your application. This deploys the application to Bluemix with all of the necessary services.
-How the app works
-12. Go to the app's web interface by clicking the Open the Deployed App button in DevOps Services or by clicking the Open URL button in the Bluemix dashboard.
-13. When presented with a chat window, enter your question and click the submit button. (The application can provide responses to questions related to these three topics: What programs the school offers, which programs are offered online, and where campuses are located.
-14. The application will leverage the Watson services and automatically post an answer your question.
-15. Ask as many questions as you like. Here are some sample questions you can use to try out the application:
+After the pipeline has been configured, you can monitor the deployment in DevOps Services.
+
+1. In DevOps Services, select **MY PROJECTS** and your newly created project.
+2. Click **BUILD & DEPLOY**.
+3. Select **View logs and history** to monitor the deployment stages.
+
+Once the deployment finishes, you will have an instance of the **Engagement advisor** app in your Bluemix Dashboard. 
+
+##How the app works
+
+1.  Go to the app's web interface by clicking the Open the Deployed App button in DevOps Services or by clicking the Open URL button in the Bluemix dashboard.
+2. When presented with a chat window, enter your question and click the submit button. (The application can provide responses to questions related to these three topics: What programs the school offers, which programs are offered online, and where campuses are located.
+3. The application will leverage the Watson services and automatically post an answer your question.
+4. Ask as many questions as you like. Here are some sample questions you can use to try out the application:
 
 Available programs:
 
