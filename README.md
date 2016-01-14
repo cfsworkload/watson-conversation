@@ -1,14 +1,14 @@
-# Workload - Program-Advisor
+# Workload - Engagement Advisor
 
 ##Learn about education offerings using automated chat
-The Program-Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
+The Engagement Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
 
 ##Introduction
-This Program-Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
+This Engagement Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
 
 1. Select the **Deploy to Bluemix** button below.
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
-2.  Once you fill in the necessary fields, click **DEPLOY**. This will start the deployment of **Engagement advisor** and the static services used with the application.
+2.  Once you fill in the necessary fields, click **DEPLOY**. This will start the deployment of **Engagement Advisor** and the static services used with the application.
 
 ## Monitor deployment
 
@@ -18,7 +18,7 @@ After the pipeline has been configured, you can monitor the deployment in DevOps
 2. Click **BUILD & DEPLOY**.
 3. Select **View logs and history** to monitor the deployment stages.
 
-Once the deployment finishes, you will have an instance of the **Engagement advisor** app in your Bluemix Dashboard. 
+Once the deployment finishes, you will have an instance of the **Engagement Advisor** app in your Bluemix Dashboard. 
 
 ##How the app works
 
