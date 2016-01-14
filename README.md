@@ -44,17 +44,17 @@ Online delivery:
 	Can I get a BSN batchlors online?
 
 
-#Answer questions with natural language using Dialog
+##Answer questions with natural language using Dialog
 The **Dialog** service enables you to design the way your application interacts with an end user through a conversational interface . The Dialog service can track and store user profile information to learn more about end users, guide them through processes based on their unique situation, or pass their information to a back-end system to help them take action and get the help they need. 
 
 For more information about the dialog service, go to the Bluemix dialog documentation.
 
-#Understand a question's intent with Natural Language Classifier
+##Understand a question's intent with Natural Language Classifier
 The **Natural Language Classifier** service applies cognitive computing techniques to return the best matching classes for a sentence or phrase. In this case, when you submit a question, the service returns keys to the best matching answers or next actions to the application. 
 
 For more information about the natural language classifier service, go to the Bluemix natural language classifier documentation.
 
-#Find the most relevant information with Retrieve and Rank
+##Find the most relevant information with Retrieve and Rank
 The **Retrieve and Rank** service, built on top of Apache Solr,  helps users find the most relevant information for their query by using a combination of search and machine learning algorithms. Developers load their data into the service, train a machine learning model based on known relevant results, and then leverage this model to provide improved results to their end users based on their question or query. In this case, the application retrieves answers from educational program documents .
 
 For more information, go to the Retrieve and Rank documentation.
