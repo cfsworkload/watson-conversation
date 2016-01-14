@@ -1,4 +1,4 @@
-# Workload Program-Advisor
+# Workload - Program-Advisor
 
 ##Learn about education offerings using automated chat
 The Program-Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
