@@ -4,7 +4,7 @@
 The Engagement Advisor application shows how you can use the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** to provide information about educational programs through an automated chat engine.
 
 ##Introduction
-This Engagement Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and binded to your application. 
+This Engagement Advisor sample application has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the services **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** will be created, trained, and bound to your application. 
 
 ## Create accounts and log in
 
