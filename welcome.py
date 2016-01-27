@@ -33,6 +33,8 @@ if 'SECURITY' in os.environ:
 	SECURITY = os.environ['SECURITY']
 if 'SKIN' in os.environ:
 	SKIN = os.environ['SKIN']
+if 'CLASSIFY' in os.environ:
+	CLASSIFY = os.environ['CLASSIFY']
 if 'DIALOG_ID' in os.environ:
 	DIALOG_ID = os.environ['DIALOG_ID']
 if 'CLASSIFIER_ID' in os.environ:
