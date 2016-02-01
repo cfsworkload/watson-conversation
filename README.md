@@ -15,9 +15,9 @@ When you sign up, you'll create an IBM ID, create an alias, and register with Bl
 
 1. Select the **Deploy to Bluemix** button below to fork a copy of the project code and create the services.
 
-  [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/engagement-advisor.git)
+  [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/cfsworkload/watson-conversation.git)
 
-2.  Once you fill in the necessary fields, click **DEPLOY** to start the deployment of the Engagement Advisor app and static services used.
+2.  Once you fill in the necessary fields, click **DEPLOY** to start the deployment of the Watson Conversation app and static services used.
 
 ## Monitor deployment
 
@@ -27,7 +27,7 @@ After the pipeline has been configured, you can monitor the deployment in DevOps
 2. Click **BUILD & DEPLOY**.
 3. Select **View logs and history** to monitor the deployment stages.
 
-Once the deployment finishes, you will have an instance of the Engagement Advisor app in your Bluemix Dashboard.
+Once the deployment finishes, you will have an instance of the Watson Conversation app in your Bluemix Dashboard.
 
 ## How the app works
 
