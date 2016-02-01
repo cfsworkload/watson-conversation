@@ -1,10 +1,10 @@
-# Workload - Engagement Advisor
+# Workload - Watson Conversation
 
 ## Learn about educational offerings using automated chat
-The Engagement Advisor app shows how you can use the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services to provide information about educational programs through an automated chat engine. Powered by Watson, the services allow for a personalized experience in which users can engage in natural, human-like conversations with the chat engine.
+The Watson Conversation app shows how you can use the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services to provide information about educational programs through an automated chat engine. Powered by Watson, the services allow for a personalized experience in which users can engage in natural, human-like conversations with the chat engine.
 
 ## Introduction
-This Engagement Advisor sample app has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services will be created, loaded with relevant data, and bound to your app.
+This Watson sample app has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services will be created, loaded with relevant data, and bound to your app.
 
 ## Create accounts and log in
 
