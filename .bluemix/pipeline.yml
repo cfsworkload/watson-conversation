@@ -147,11 +147,11 @@ stages:
       echo "Create a collection"
       curl -X POST -H "Content-Type: application/zip" -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/config/example-config --data-binary @r-and-r/pmi_solr_config.zip
 
-      curl -X POST -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/admin/collections -d "action=CREATE&name=example-collection&collection.configName=example-config"
+      curl -X POST -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/admin/collections -d "action=CREATE&name=exampleCollection&collection.configName=example-config"
 
       # Add documents to collection
       echo "Add documents to collection"
-      curl -X POST -H "Content-Type: application/json" -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/example-collection/update --data-binary @r-and-r/pmi_data.json
+      curl -X POST -H "Content-Type: application/json" -u $randr_username:$randr_password https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/solr_clusters/${SOLR_CLUSTER_ID}/solr/exampleCollection/update --data-binary @r-and-r/pmi_data.json
 
       sleep 30
       fi
@@ -159,7 +159,7 @@ stages:
 
       if [ ${BUILD_NUMBER} == 1 ]
       then
-      python ./train.py -u ${randr_username}:${randr_password} -i r-and-r/pmi_gt.csv -c ${SOLR_CLUSTER_ID} -x example-collection -n "example-ranker"
+      python ./train.py -u ${randr_username}:${randr_password} -i r-and-r/pmi_gt.csv -c ${SOLR_CLUSTER_ID} -x exampleCollection -n "example-ranker"
 
 
       RANKER_ID=`curl -u ${randr_username}:${randr_password} https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers | awk -F":" '{print $3}' | awk -F"," '{print $1}'`
