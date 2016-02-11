@@ -1,7 +1,7 @@
-# Workload - Watson Conversation
+# Workload - Conversation Agent
 
 ## Learn about educational offerings using automated chat
-The Watson Conversation app shows how you can use the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services to provide information about educational programs through an automated chat engine. Powered by Watson, the services allow for a personalized experience in which users can engage in natural, human-like conversations with the chat engine.
+The Conversation Agent app shows how you can use the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services to provide information about educational programs through an automated chat engine. Powered by Watson, the services allow for a personalized experience in which users can engage in natural, human-like conversations with the chat engine.
 
 ## Introduction
 This Watson sample app has been created so you can deploy it into your personal DevOps space after signing up for Bluemix and DevOps Services. When you deploy the pipeline to Bluemix, the **Dialog**, **Natural Language Classifier**, and **Retrieve and Rank** services will be created, loaded with relevant data, and bound to your app.
@@ -27,7 +27,7 @@ After the pipeline has been configured, you can monitor the deployment in DevOps
 2. Click **BUILD & DEPLOY**.
 3. Select **View logs and history** to monitor the deployment stages.
 
-Once the deployment finishes, you will have an instance of the Watson Conversation app in your Bluemix Dashboard.
+Once the deployment finishes, you will have an instance of the Conversation Agent app in your Bluemix Dashboard.
 
 ## How the app works
 
