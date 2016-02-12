@@ -48,7 +48,7 @@ stages:
       cf bind-service "${CF_APP}" "${CF_APP}-classifier"
       cf bind-service "${CF_APP}" "${CF_APP}-dialog"
       cf bind-service "${CF_APP}" "${CF_APP}-randr"
-      cf set-env ${CF_APP} SECURITY "ON"
+      cf set-env ${CF_APP} SECURITY "OFF"
       cf set-env ${CF_APP} SKIN "WEA-Dialog-Tool"
       cf set-env ${CF_APP} CLASSIFY "YES"
       # Retrieve classifier and dialog credentials
