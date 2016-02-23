@@ -29,6 +29,12 @@ After the pipeline has been configured, you can monitor the deployment in DevOps
 
 Once the deployment finishes, you will have an instance of the Conversational Agent app in your Bluemix Dashboard.
 
+## Application security
+
+If you are presented with a login page when accessing the application, the user_id and password is: **admin/admin**
+
+You can turn-off this security feature by resetting one of the application's USER-DEFINED environment variables. Just change the "SECURITY" variable from ON to OFF.
+
 ## How the app works
 
 1.  Go to the web interface of the app by clicking the **Open the Deployed App** button in DevOps Services or the **Open URL** button in your Bluemix Dashboard.
